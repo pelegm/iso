@@ -1,7 +1,3 @@
-"""
-.. bfs.py
-"""
-
 from collections import defaultdict, deque
 from sage.rings.integer import Integer
 

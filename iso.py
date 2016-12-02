@@ -42,3 +42,23 @@ def edge_isoperimetric_number_of_tree(g):
 
     k = max(min(iso[v], iso[root] - iso[v]) for v in order)
     return Integer(1) / k
+
+
+def cheeger_constant_of_tree(g):
+    if not g.is_tree():
+        raise ValueError("this algorithm only works for trees")
+
+    iso = {}
+
+    root = g.random_vertex()
+    order, parent = BFS(g, root)
+    children = defaultdict(set)
+    for u, v in parent.viewitems():
+        children[v].add(u)
+    for v in order[::-1]:
+        iso[v] = 1 + sum(iso[u] + 1 for u in children[v])
+
+    iso[root] -= 1
+
+    k = max(min(iso[v], iso[root] - iso[v]) for v in order)
+    return Integer(1) / k
